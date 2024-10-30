@@ -43,6 +43,7 @@ class InputInfoWidget extends StatefulWidget {
   final FontWeight fontWeight;
   final Size iconSize;
   final List<BoxShadow>? boxShadow;
+  final bool isSearch;
 
   const InputInfoWidget({Key? key, 
     this.controller,
@@ -84,6 +85,7 @@ class InputInfoWidget extends StatefulWidget {
     this.colorInputText = '4F4F4F',
     this.fontWeight = FontWeight.w400,
     this.boxShadow,
+    this.isSearch = false,
   }) : super(key: key);
 
   @override
@@ -200,11 +202,20 @@ class _InputInfoWidgetState extends State<InputInfoWidget>
                       : Constant.kColorBorderInput,
                   width: 1,
                 ),
-            borderRadius: widget.borderRadiusBackground ?? BorderRadius.circular(8),
+            borderRadius: widget.isSearch
+                ? BorderRadius.circular(24)
+                : widget.borderRadiusBackground ?? BorderRadius.circular(8),
             boxShadow: widget.boxShadow,
           ),
           child: Row(
             children: [
+              if (widget.isSearch) ...[
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Icon(Icons.search, color: Colors.grey),
+                ),
+                const SizedBox(width: 8),
+              ],
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
